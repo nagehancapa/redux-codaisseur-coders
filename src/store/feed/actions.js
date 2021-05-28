@@ -15,15 +15,16 @@ export function postsFetched(morePosts) {
   };
 }
 
-export const fetchNext5Posts = () => async (dispatch, getState) => {
+export async function fetchNext5Posts(dispatch, getState) {
   dispatch(startLoading());
 
   const offset = getState().feed.posts.length;
 
   const response = await axios.get(`${API_URL}/posts?offset=${offset}&limit=5`);
+
   console.log(response);
 
   const morePosts = response.data.rows;
 
   dispatch(postsFetched(morePosts));
-};
+}
